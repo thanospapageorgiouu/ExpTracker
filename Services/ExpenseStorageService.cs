@@ -13,10 +13,23 @@ namespace ExpTracker.Services
         {
             if (!File.Exists(_filePath))
                 return new List<Expense>();
-
-            string json = File.ReadAllText(_filePath);
-            return JsonSerializer.Deserialize<List<Expense>>(json)
-                   ?? new List<Expense>();
+            else
+            {
+                string json = File.ReadAllText(_filePath);
+                return JsonSerializer.Deserialize<List<Expense>>(json) ?? new List<Expense>(); //if json == empty, Return empty list instead of crashing
+            }
         }
+
+        public void SaveExpenses(List<Expense> expenses)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            string json = JsonSerializer.Serialize(expenses, options);
+            File.WriteAllText(_filePath, json);
+        }
+
     }
 }
