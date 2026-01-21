@@ -24,7 +24,7 @@ namespace ExpTracker.Services
         {
             var options = new JsonSerializerOptions
             {
-                WriteIndented = true
+                WriteIndented = true    //Makes json better view
             };
 
             string json = JsonSerializer.Serialize(expenses, options);

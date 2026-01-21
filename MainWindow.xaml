@@ -5,8 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExpTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="ExpTracker"
+        Height="450"
+        Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <!-- Φόρμα -->
+            <RowDefinition Height="Auto"/>
+            <!-- Πίνακας -->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ===== Add Expense Form ===== -->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0"
+                    Margin="0,0,0,10"
+                    VerticalAlignment="Center">
+
+            <TextBox x:Name="AmountTextBox"
+                     Width="100"
+                     Margin="0,0,10,0"
+                     ToolTip="Ποσό"/>
+
+            <DatePicker x:Name="DatePicker"
+                        Width="130"
+                        Margin="0,0,10,0"/>
+
+            <TextBox x:Name="CategoryTextBox"
+                     Width="150"
+                     Margin="0,0,10,0"
+                     ToolTip="Κατηγορία"/>
+
+            <TextBox x:Name="NoteTextBox"
+                     Width="200"
+                     Margin="0,0,10,0"
+                     ToolTip="Σημείωση"/>
+
+            <Button Content="Add Expense"
+                     Width="110"
+                     Click="AddExpense_Click"/>
+
+        </StackPanel>
+
+        <!-- ===== Expenses Table ===== -->
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Expenses}"
+                  AutoGenerateColumns="False">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Ποσό (€)"
+                                    Binding="{Binding Amount}"
+                                    Width="100"/>
+
+                <DataGridTextColumn Header="Ημερομηνία"
+                                    Binding="{Binding Date, StringFormat=d}"
+                                    Width="120"/>
+
+                <DataGridTextColumn Header="Κατηγορία"
+                                    Binding="{Binding Category}"
+                                    Width="150"/>
+
+                <DataGridTextColumn Header="Σημείωση"
+                                    Binding="{Binding Note}"
+                                    Width="*"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

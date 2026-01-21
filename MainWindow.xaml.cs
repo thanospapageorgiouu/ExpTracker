@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ExpTracker.Models;
+using ExpTracker.Services;
 
 namespace ExpTracker
 {
@@ -16,9 +18,25 @@ namespace ExpTracker
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ExpenseStorageService _storageService = new ExpenseStorageService();
+        private List<Expense> _expenses = new List<Expense>();
+
+        private void AddExpense_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Add clicked!");
+        }
+
+
+        public List<Expense> Expenses
+        {
+            get { return _expenses; }
+        }
+
+
         public MainWindow()
         {
             InitializeComponent();
+            _expenses = _storageService.LoadExpenses();
         }
     }
 }
